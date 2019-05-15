@@ -1,4 +1,4 @@
-package com.qiaoxun.test;
+package com.qiaoxun.util;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -9,18 +9,33 @@ public class DownloadImg {
 
     /*
     不带cookie下载图片
+    漫画封面图片
      */
-    public static void download(String url) throws IOException {
+    public static String download1(String url,int cartoonId) throws IOException {
         Connection.Response response = Jsoup.connect(url).ignoreContentType(true).execute();
         byte[] img = response.bodyAsBytes();
-        /*String[] paths=new String[Test.cartoons];
-        for (int i=1;i<=Test.cartoons;i++){
-            String path="/bookimages/100130/cover"+i+".jpg";
-            paths[i]=path;
-
-        }*/
-        //System.out.println(img.length);
-        savaImage(img, "D:\\javaCrawJWXT", "/bookimages/100130/cover1.jpg");
+        savaImage(img, "D:\\javaCrawJWXT"+"/bookimages/"+cartoonId, "/image.jpg");
+        return "/bookimages/"+cartoonId+"/image/"+cartoonId+"image.jpg";
+    }
+    /*
+    不带cookie下载图片
+    横着的封面图片
+     */
+    public static String download2(String url,int cartoonId) throws IOException {
+        Connection.Response response = Jsoup.connect(url).ignoreContentType(true).execute();
+        byte[] img = response.bodyAsBytes();
+        savaImage(img, "D:\\javaCrawJWXT"+"/bookimages/"+cartoonId, "/cover.jpg");
+        return "/bookimages/"+cartoonId+"/cover.jpg";
+    }
+    /*
+    不带cookie下载图片
+    章节内部图片
+     */
+    public static String download3(String url,int cartoonId,int chapterId,int imgId) throws IOException {
+        Connection.Response response = Jsoup.connect(url).ignoreContentType(true).execute();
+        byte[] img = response.bodyAsBytes();
+        savaImage(img, "D:\\javaCrawJWXT"+"/bookimages/"+cartoonId+"/chapter"+chapterId, "/"+imgId+".jpg");
+        return "/bookimages/"+cartoonId+"/chapter"+chapterId+"/"+imgId+".jpg";
     }
     /*
     保存图片
@@ -31,9 +46,15 @@ public class DownloadImg {
         File file = null;
         File dir = new File(filePath);
         try {
-            //判断文件目录是否存在
-            if(!dir.exists() && dir.isDirectory()){
-                dir.mkdir();
+            //创建目录和图片
+
+            file=new File(filePath);
+            if(!dir.exists()) {
+                dir.mkdirs();
+                file.createNewFile();
+            }
+            if(!file.exists()) {
+                file.createNewFile();
             }
             file = new File(filePath+"\\"+fileName);
             fos = new FileOutputStream(file);
@@ -68,15 +89,5 @@ public class DownloadImg {
 
     }
 
-    public static void main(String[] args) throws IOException {
-        String []urls={"http://tu.027cgb.com/617983/漫画/暧昧女上司/第1话/10.jpg",
-                "http://tu.027cgb.com/617983/漫画/暧昧女上司/第1话/14.jpg",
-                "http://tu.027cgb.com/617983/漫画/暧昧女上司/第1话/18.jpg",
-                "http://tu.027cgb.com/617983/漫画/暧昧女上司/第1话/2.jpg",
-                "http://tu.027cgb.com/617983/漫画/暧昧女上司/第1话/24.jpg"};
-        for (int i=0;i<urls.length;i++){
-            download(urls[i]);
-        }
 
-    }
 }

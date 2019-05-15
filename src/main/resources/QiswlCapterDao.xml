@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qiaoxun.dao.QiswlCapterDao">
+  <resultMap id="BaseResultMap" type="com.qiaoxun.demo.pojo.QiswlCapter">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="manhua_id" jdbcType="INTEGER" property="manhuaId" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="isvip" jdbcType="CHAR" property="isvip" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="view" jdbcType="INTEGER" property="view" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="cjid" jdbcType="VARCHAR" property="cjid" />
+    <result column="cjname" jdbcType="VARCHAR" property="cjname" />
+    <result column="switch" jdbcType="BIT" property="switch1" />
+    <result column="cjstatus" jdbcType="TINYINT" property="cjstatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.qiaoxun.demo.pojo.QiswlCapterWithBLOBs">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="imagelist" jdbcType="LONGVARCHAR" property="imagelist" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, image, create_time, update_time, manhua_id, sort, isvip, score, `view`, 
+    `type`, cjid, cjname, switch, cjstatus
+  </sql>
+  <sql id="Blob_Column_List">
+    content, imagelist
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from qiswl_capter
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from qiswl_capter
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.qiaoxun.demo.pojo.QiswlCapterWithBLOBs" useGeneratedKeys="true">
+    insert into qiswl_capter (title, image, create_time, 
+      update_time, manhua_id, sort, 
+      isvip, score, `view`, `type`, 
+      cjid, cjname, switch, cjstatus, 
+      content, imagelist)
+    values (#{title,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{manhuaId,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
+      #{isvip,jdbcType=CHAR}, #{score,jdbcType=INTEGER}, #{view,jdbcType=INTEGER}, #{type,jdbcType=TINYINT}, 
+      #{cjid,jdbcType=VARCHAR}, #{cjname,jdbcType=VARCHAR}, #{switch1,jdbcType=BIT}, #{cjstatus,jdbcType=TINYINT},
+      #{content,jdbcType=LONGVARCHAR}, #{imagelist,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.qiaoxun.demo.pojo.QiswlCapterWithBLOBs" useGeneratedKeys="true">
+    insert into qiswl_capter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="manhuaId != null">
+        manhua_id,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="isvip != null">
+        isvip,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="view != null">
+        `view`,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="cjid != null">
+        cjid,
+      </if>
+      <if test="cjname != null">
+        cjname,
+      </if>
+      <if test="switch != null">
+        switch,
+      </if>
+      <if test="cjstatus != null">
+        cjstatus,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="imagelist != null">
+        imagelist,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manhuaId != null">
+        #{manhuaId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isvip != null">
+        #{isvip,jdbcType=CHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="view != null">
+        #{view,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="cjid != null">
+        #{cjid,jdbcType=VARCHAR},
+      </if>
+      <if test="cjname != null">
+        #{cjname,jdbcType=VARCHAR},
+      </if>
+      <if test="switch != null">
+        #{switch1,jdbcType=BIT},
+      </if>
+      <if test="cjstatus != null">
+        #{cjstatus,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagelist != null">
+        #{imagelist,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qiaoxun.demo.pojo.QiswlCapterWithBLOBs">
+    update qiswl_capter
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manhuaId != null">
+        manhua_id = #{manhuaId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isvip != null">
+        isvip = #{isvip,jdbcType=CHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="view != null">
+        `view` = #{view,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="cjid != null">
+        cjid = #{cjid,jdbcType=VARCHAR},
+      </if>
+      <if test="cjname != null">
+        cjname = #{cjname,jdbcType=VARCHAR},
+      </if>
+      <if test="switch != null">
+        switch = #{switch1,jdbcType=BIT},
+      </if>
+      <if test="cjstatus != null">
+        cjstatus = #{cjstatus,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="imagelist != null">
+        imagelist = #{imagelist,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qiaoxun.demo.pojo.QiswlCapterWithBLOBs">
+    update qiswl_capter
+    set title = #{title,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      manhua_id = #{manhuaId,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      isvip = #{isvip,jdbcType=CHAR},
+      score = #{score,jdbcType=INTEGER},
+      `view` = #{view,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=TINYINT},
+      cjid = #{cjid,jdbcType=VARCHAR},
+      cjname = #{cjname,jdbcType=VARCHAR},
+      switch = #{switch1,jdbcType=BIT},
+      cjstatus = #{cjstatus,jdbcType=TINYINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      imagelist = #{imagelist,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qiaoxun.demo.pojo.QiswlCapter">
+    update qiswl_capter
+    set title = #{title,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      manhua_id = #{manhuaId,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      isvip = #{isvip,jdbcType=CHAR},
+      score = #{score,jdbcType=INTEGER},
+      `view` = #{view,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=TINYINT},
+      cjid = #{cjid,jdbcType=VARCHAR},
+      cjname = #{cjname,jdbcType=VARCHAR},
+      switch = #{switch,jdbcType=BIT},
+      cjstatus = #{cjstatus,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
